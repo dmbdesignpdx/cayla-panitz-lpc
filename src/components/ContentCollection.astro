@@ -1,0 +1,36 @@
+---
+import type { ContentCollection } from "../types/main";
+import Stagger from "../components/Stagger.astro";
+import Card from "../components/Card.astro";
+import { getAnchor } from "../lib/anchorize";
+import { CollectionType } from "../constants/main";
+import * as style from "../styles/collection.styles";
+
+interface Props extends ContentCollection {}
+
+
+const {
+  heading,
+  type,
+  sections,
+} = Astro.props;
+
+const Component = type === CollectionType.STAGGERED ? Stagger : Card;
+const { id } = getAnchor(heading || "");
+---
+
+
+<section
+  class={style.root}
+  id={id}
+>
+  <h2 data-sr>{heading}</h2>
+
+  {sections?.map(block => (
+    <Component
+      content={block.content}
+      heading={block.heading}
+    />
+  ))}
+
+</section>

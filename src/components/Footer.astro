@@ -1,0 +1,40 @@
+---
+import type { Footer } from "../types/main";
+import { getHref } from "../lib/phone";
+import * as style from "../styles/footer.styles";
+
+interface Props extends Footer {}
+
+
+const {
+  heading,
+  resources,
+  copyright,
+} = Astro.props;
+
+const year = new Date().getFullYear();
+---
+
+
+<footer class={style.root}>
+  <div class={style.content}>
+    {heading && <h3 class={style.heading}>{heading}</h3>}
+
+    {resources?.length && (
+      <dl class={style.list}>
+        {resources.map(item => (
+          <div class={style.item}>
+            <dt>{item.key}</dt>
+            <dd>
+              <a href={getHref(item.value || "")}>{item.value}</a>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    )}
+
+    <p class={style.legal}>
+      <small>Copyright {year} {copyright || "."}</small>
+    </p>
+  </div>
+</footer>

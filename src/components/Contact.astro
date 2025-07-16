@@ -1,0 +1,47 @@
+---
+import type { ContactBlock } from "../types/main";
+import { getAnchor } from "../lib/anchorize";
+import * as style from "../styles/contact.styles";
+
+interface Props extends ContactBlock {}
+
+
+const {
+  heading,
+  contact,
+  address,
+} = Astro.props;
+
+const {
+  fax,
+  email,
+  phone,
+} = contact ?? {};
+
+const {
+  street,
+  unit,
+  city,
+  state,
+  zipcode,
+} = address ?? {};
+const { id } = getAnchor(heading || "");
+---
+
+
+<section
+  class={style.root}
+  id={id}
+>
+  <h2 class={style.heading}>{heading}</h2>
+  <address class={style.contact}>
+    <p>Email: {email}</p>
+    <p>Phone: {phone}</p>
+    <p>Fax: {fax}</p>
+  </address>
+  <p class={style.address}>
+    {street && <span>{street}</span>}<br />
+    {unit && (<span>{unit}</span><br />)}
+    {city && <span>{city}</span>}, {state && <span>{state}</span>} {zipcode && <span>{zipcode}</span>}
+  </p>
+</section>

@@ -1,0 +1,104 @@
+---
+import { Image } from "astro:assets";
+
+import type { ContentBlock } from "../types/main";
+import Shape from "./Shape.astro";
+import * as style from "../styles/shero.styles";
+import { md } from "../lib/markdown";
+import { Color, dictionary } from "../constants/main";
+
+interface Props extends ContentBlock {}
+
+
+const { heading, content } = Astro.props;
+
+const copy = content?.copy ?? "";
+const image = content?.image ?? {};
+const html = await md.inline(copy);
+---
+
+
+<header class={style.root}>
+  <h1 class={style.heading}>
+    <span>{heading}</span>
+    {" "}
+    <abbr title={dictionary.lpc.title}>{dictionary.lpc.abbr}</abbr>
+  </h1>
+  <p
+    class={style.copy}
+    set:html={html}
+  />
+  <div class={style.container}>
+    <Shape color={Color.TEAL} />
+    <Shape color={Color.RED} />
+
+    {image.url && (
+      <Image
+        alt=""
+        class={style.image}
+        height={image.height || 300}
+        src={image.url}
+        width={image.width || 400}
+      />
+    )}
+
+    <Shape color={Color.YELLOW} />
+  </div>
+</header>
+
+
+<script>
+import { Color } from "../constants/main";
+
+const RED_DIV = document.getElementById(Color.RED);
+const TEAL_DIV = document.getElementById(Color.TEAL);
+const YELLOW_DIV = document.getElementById(Color.YELLOW);
+const YELLOW_SVG = YELLOW_DIV?.querySelector("svg");
+const RED_SVG = RED_DIV?.querySelector("svg");
+const TEAL_SVG = TEAL_DIV?.querySelector("svg");
+const reduce: boolean = matchMedia("(prefers-reduced-motion)").matches;
+
+
+const options: KeyframeAnimationOptions = {
+  fill: "forwards",
+  duration: 200,
+};
+
+const parallax = (): void => {
+  if (scrollY < (innerHeight * 0.9)) {
+    const fastY: number = Math.ceil(scrollY * 0.6);
+    const midY: number = Math.ceil(scrollY * 0.3);
+    const slowY: number = Math.ceil(scrollY * 0.2);
+
+    YELLOW_DIV?.animate([
+      { transform: `translateY(-${fastY}px)` },
+    ], options);
+
+    RED_DIV?.animate([
+      { transform: `translateY(-${midY}px)` },
+    ], options);
+
+    TEAL_DIV?.animate([
+      { transform: `translateY(-${slowY}px)` },
+    ], options);
+
+    YELLOW_SVG?.animate([
+      { transform: `rotate(${slowY}deg)` },
+    ], options);
+
+    RED_SVG?.animate([
+      { transform: `rotate(-${slowY}deg)` },
+    ], options);
+
+    TEAL_SVG?.animate([
+      { transform: `rotate(-${slowY}deg)` },
+    ], options);
+  }
+};
+
+if (!reduce) {
+  addEventListener("scroll", () => {
+    requestAnimationFrame(parallax);
+  }, { passive: true });
+}
+</script>

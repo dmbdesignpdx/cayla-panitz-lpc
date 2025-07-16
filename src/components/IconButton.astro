@@ -1,0 +1,40 @@
+---
+import * as style from "../styles/icon-button.styles";
+
+interface Props {
+  label: string;
+  controls: string;
+}
+
+
+const {
+  label,
+  controls,
+} = Astro.props;
+---
+
+
+<button
+  id={label.toLowerCase()}
+  class={style.root}
+  type="button"
+  aria-controls={controls}
+  aria-expanded="false"
+>
+  <svg viewBox="0 0 20 20">
+    {label === "Close" && (
+      <>
+        <path d="M5,5 15,15" />
+        <path d="M15,5 5,15" />
+      </>
+    )}
+    {label === "Open" && (
+      <>
+        <path d="M4,6h12" />
+        <path d="M4,10h12" />
+        <path d="M4,14h12" />
+      </>
+    )}
+  </svg>
+  <span data-sr>{label}</span>
+</button>

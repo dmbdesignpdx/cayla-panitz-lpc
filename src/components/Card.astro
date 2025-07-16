@@ -1,0 +1,24 @@
+---
+// Ours
+import type { ContentBlock } from "../types/main";
+import { md } from "../lib/markdown";
+import * as style from "../styles/card.styles";
+
+// Types
+interface Props extends ContentBlock {}
+
+// Props
+const { heading, content } = Astro.props;
+
+// Local
+const copy = content?.copy ?? "";
+const html = await md.block(copy);
+---
+
+
+<section class={style.root}>
+  {heading && <h2 class={style.heading}>{heading}</h2>}
+  <div class={style.list}>
+    <Fragment set:html={html} />
+  </div>
+</section>

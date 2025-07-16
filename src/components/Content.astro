@@ -1,0 +1,27 @@
+---
+import type { ContentBlock } from "../types/main";
+import { md } from "../lib/markdown";
+import { getAnchor } from "../lib/anchorize";
+import * as style from "../styles/content.styles";
+
+interface Props extends ContentBlock {}
+
+// Props
+const { heading, content } = Astro.props;
+
+// Local
+const copy = content?.copy ?? "";
+const html = await md.block(copy);
+const { id } = getAnchor(heading || "");
+---
+
+
+<section
+  class={style.root}
+  id={id}
+>
+  <h2 class={style.heading}>{heading}</h2>
+  <div class={style.content}>
+    <Fragment set:html={html} />
+  </div>
+</section>

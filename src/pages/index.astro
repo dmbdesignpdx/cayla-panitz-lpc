@@ -1,0 +1,197 @@
+---
+// Theirs
+import { GraphQLClient } from "graphql-request";
+
+// Ours
+import type { Data } from "../types/main";
+import { document } from "../graphql/main";
+import {
+  FontUrl,
+  Site,
+  Assets,
+} from "../constants/main";
+import Shero from "../components/Shero.astro";
+import Entry from "../components/Entry.astro";
+import Footer from "../components/Footer.astro";
+import Nav from "src/components/Nav.astro";
+import "../styles/index.css";
+
+const client = new GraphQLClient(import.meta.env.CONTENT);
+const data = await client.request<Data>(document);
+const [home] = data.pages;
+const {
+  shero,
+  sections,
+  footer,
+} = home;
+
+const headings = sections?.map(item => `${item.heading}`) || [""];
+---
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href={Assets.URL}
+      rel="preconnect"
+    />
+    <link
+      href={FontUrl.API}
+      rel="preconnect"
+    />
+    <link
+      crossorigin
+      href={FontUrl.STATIC}
+      rel="preconnect"
+    />
+    <meta
+      content="width=device-width,initial-scale=1"
+      name="viewport"
+    />
+    <meta
+      content={Astro.generator}
+      name="generator"
+    />
+    <title>{home.title}</title>
+    <link
+      href="/favicon.ico"
+      rel="icon"
+      sizes="32x32"
+    />
+    <link
+      href="/favicon.svg"
+      rel="icon"
+      type="image/svg+xml"
+    />
+    <meta
+      content={home.description}
+      name="description"
+    />
+    <link
+      href={FontUrl.STYLE}
+      rel="stylesheet"
+    />
+    <link
+      href={Site.URL}
+      rel="canonical"
+    />
+    <meta
+      content={Site.AUTHOR}
+      name="author"
+    />
+    <meta
+      content="telephone=no,email=no"
+      name="format-detection"
+    />
+    <meta
+      content="light"
+      name="color-scheme"
+    />
+    <meta
+      content={Site.COLOR}
+      name="theme-color"
+    />
+    <meta
+      content="summary_large_image"
+      name="twitter:card"
+    />
+    <meta
+      content="{{ .Title }}"
+      name="twitter:title"
+    />
+    <meta
+      content="{{ .Description }}"
+      name="twitter:description"
+    />
+    <meta
+      content="/cayla-op.png"
+      name="twitter:image"
+    />
+    <meta
+      content="{{ .Description }}"
+      name="twitter:image:alt"
+    />
+    <meta
+      content="{{ .Permalink }}"
+      name="twitter:url"
+    />
+    <meta
+      content="website"
+      property="og:type"
+    />
+    <meta
+      content="{{ .Title }}"
+      property="og:title"
+    />
+    <meta
+      content="{{ .Site.Title }}"
+      property="og:site_name"
+    />
+    <meta
+      content="{{ .Description }}"
+      property="og:description"
+    />
+    <meta
+      content="{{ .Site.Params.image.src | absURL }}"
+      property="og:image"
+    />
+    <meta
+      content="{{ .Site.Params.image.width }}"
+      property="og:image:width"
+    />
+    <meta
+      content="{{ .Site.Params.image.height }}"
+      property="og:image:height"
+    />
+    <meta
+      content="{{ .Site.Params.image.type }}"
+      property="og:image:type"
+    />
+    <meta
+      content="{{ .Permalink }}"
+      property="og:url"
+    />
+    <link
+      rel="sitemap"
+      href="/sitemap-index.xml"
+    />
+  </head>
+
+  <body>
+    {shero && <Shero {...shero} />}
+    <Nav sections={headings} />
+    <main>
+
+      {sections?.length && sections.map(section => (
+        <Entry sort={section} />
+      ))}
+
+    </main>
+    {footer && <Footer {...footer} />}
+  </body>
+</html>
+
+
+<script>
+ const collection = [...document.querySelectorAll("[data-lazy]")];
+ let counter = 0;
+
+ const observer = new IntersectionObserver(entries => {
+   entries.forEach(entry => {
+     const animate = (): void => {
+       entry.target.removeAttribute("data-lazy");
+       observer.unobserve(entry.target);
+       counter++;
+
+       if (counter === collection.length) observer.disconnect();
+     };
+
+     if (entry.isIntersecting) requestAnimationFrame(animate);
+   });
+ }, {
+   threshold: [0.4],
+ });
+
+	collection.forEach(item => void observer.observe(item));
+</script>

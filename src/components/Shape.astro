@@ -1,0 +1,30 @@
+---
+import * as style from "../styles/shape.styles";
+
+type Color = "teal" | "red" | "yellow";
+interface Props {
+  color: Color;
+}
+
+const { color } = Astro.props;
+
+const className = style.root({ color });
+const path: Record<Color, string> = {
+  teal: "M0,75 62,0 62,100",
+  red: "M0,25 75,0 100,98",
+  yellow: "M0,100 18,0 84,100",
+};
+---
+
+
+<div
+  class={className}
+  id={color}
+>
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 100 100"
+  >
+    <path d={path[color]} />
+  </svg>
+</div>

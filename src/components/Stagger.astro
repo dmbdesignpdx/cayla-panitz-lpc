@@ -1,0 +1,33 @@
+---
+import type { ContentBlock } from "../types/main";
+import * as style from "../styles/staggered.styles";
+import { md } from "../lib/markdown";
+
+
+type Props = ContentBlock;
+
+
+const { heading, content } = Astro.props;
+const html = await md.block(content?.copy ?? "");
+---
+
+
+<section
+  class={style.root}
+  data-staggered
+>
+  <h2 class={style.heading}>{heading}</h2>
+  {content && (
+    <div
+      class={style.content}
+      set:html={html}
+    />
+    <img
+      alt=""
+      class={style.image}
+      data-lazy
+      loading="lazy"
+      src={content.image?.url}
+    />
+  )}
+</section>

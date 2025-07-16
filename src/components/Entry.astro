@@ -1,0 +1,37 @@
+---
+import type { Section } from "../types/main";
+import { EntryType } from "../constants/main";
+import Content from "./Content.astro";
+import Contact from "./Contact.astro";
+import ContentCollection from "./ContentCollection.astro";
+
+interface Props {
+  sort: Section;
+}
+
+
+const { sort: props } = Astro.props;
+---
+
+<>
+  {props.__typename === EntryType.CONTACT_BLOCK && (
+    <Contact
+      address={props.address}
+      contact={props.contact}
+      heading={props.heading}
+    />
+  )}
+  {props.__typename === EntryType.CONTENT_BLOCK && (
+    <Content
+      content={props.content}
+      heading={props.heading}
+    />
+  )}
+  {props.__typename === EntryType.CONTENT_COLLECTION && (
+    <ContentCollection
+      heading={props.heading}
+      sections={props.sections}
+      type={props.type}
+    />
+  )}
+</>
