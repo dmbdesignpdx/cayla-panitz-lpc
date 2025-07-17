@@ -21,6 +21,7 @@ const html = await md.block(content?.copy ?? "");
     <div
       class={style.content}
       set:html={html}
+      data-markdown
     />
     <img
       alt=""
