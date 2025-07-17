@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@vercel/analytics':
+        specifier: ^1.5.0
+        version: 1.5.0
       astro:
         specifier: ^5.11.1
         version: 5.11.1(@types/node@24.0.14)(lightningcss@1.25.1)(rollup@4.45.1)(typescript@5.8.3)
@@ -792,6 +795,32 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+
+  '@vercel/analytics@1.5.0':
+    resolution: {integrity: sha512-MYsBzfPki4gthY5HnYN7jgInhAZ7Ac1cYDoRWFomwGHWEX7odTEzbtg9kf/QSo7XEsEAqlQugA6gJ2WS2DEa3g==}
+    peerDependencies:
+      '@remix-run/react': ^2
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      react: ^18 || ^19 || ^19.0.0-rc
+      svelte: '>= 4'
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@remix-run/react':
+        optional: true
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
 
   '@vue/compiler-core@3.4.19':
     resolution: {integrity: sha512-gj81785z0JNzRcU0Mq98E56e4ltO1yf8k5PQ+tV/7YHnbZkrM0fyFyuttnN8ngJZjbpofWE/m4qjKBiLl8Ju4w==}
@@ -3409,6 +3438,8 @@ snapshots:
       eslint-visitor-keys: 4.2.1
 
   '@ungap/structured-clone@1.3.0': {}
+
+  '@vercel/analytics@1.5.0': {}
 
   '@vue/compiler-core@3.4.19':
     dependencies:
