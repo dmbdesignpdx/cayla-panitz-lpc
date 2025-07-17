@@ -182,12 +182,23 @@ export default defineConfig({
     address: {
       fontStyle: "normal",
     },
-    ".shadow": {},
     "[data-sr]": {
       position: "absolute",
       width: "1px",
       height: "1px",
       overflow: "hidden",
+    },
+    "[data-markdown]": {
+      "& a": {
+        color: "teal.600",
+        fontWeight: "600",
+
+        _action: {
+          textDecoration: "underline",
+          textUnderlineOffset: "3px",
+          textDecorationThickness: "1px",
+        },
+      },
     },
   },
 });
