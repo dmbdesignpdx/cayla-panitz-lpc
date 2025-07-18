@@ -21,7 +21,9 @@ const { id } = getAnchor(heading || "");
   id={id}
 >
   <h2 class={style.heading}>{heading}</h2>
-  <div class={style.content}>
-    <Fragment set:html={html} />
-  </div>
+  <div
+    class={style.content}
+    data-markdown
+    set:html={html}
+  />
 </section>
