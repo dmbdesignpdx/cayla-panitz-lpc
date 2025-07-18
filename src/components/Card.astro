@@ -18,7 +18,8 @@ const html = await md.block(copy);
 
 <section class={style.root}>
   {heading && <h2 class={style.heading}>{heading}</h2>}
-  <div class={style.list}>
-    <Fragment set:html={html} />
-  </div>
+  <div
+    class={style.list}
+    set:html={html}
+  />
 </section>
