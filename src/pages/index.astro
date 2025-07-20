@@ -2,6 +2,7 @@
 // Theirs
 import { GraphQLClient } from "graphql-request";
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 // Ours
 import type { Data } from "../types/main";
@@ -162,6 +163,7 @@ const headings = sections?.map(item => `${item.heading}`) || [""];
       rel="sitemap"
       href="/sitemap-index.xml"
     />
+    <SpeedInsights />
     <Analytics />
   </head>
 
