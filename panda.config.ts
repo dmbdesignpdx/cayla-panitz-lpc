@@ -165,11 +165,6 @@ export default defineConfig({
         overflow: "hidden",
       },
     },
-    dialog: {
-      _open: {
-        color: "rebeccapurple",
-      },
-    },
     body: {
       textStyle: "body",
       backgroundColor: "background",
