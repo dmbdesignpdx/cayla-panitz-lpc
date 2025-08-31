@@ -1,0 +1,40 @@
+---
+import type { Dialog } from "../types/main";
+import { md } from "../lib/markdown";
+import * as style from "../styles/dialog.styles";
+
+interface Props extends Dialog {}
+
+const {
+  heading,
+  content,
+} = Astro.props;
+
+const copy = await md.inline(content ?? "");
+---
+
+
+<script>
+const $dialog = document.querySelector<HTMLDialogElement>("#message");
+
+window.addEventListener("DOMContentLoaded", () => {
+  window.requestAnimationFrame(() => void $dialog?.showModal());
+});
+</script>
+
+
+<dialog
+  id="message"
+  class={style.root}
+  aria-label={heading || undefined}
+>
+  {content && <p set:html={copy} />}
+  <form method="dialog">
+    <button
+      class={style.button}
+      autofocus
+    >
+      OK
+    </button>
+  </form>
+</dialog>

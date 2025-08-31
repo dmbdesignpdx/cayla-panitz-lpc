@@ -160,6 +160,15 @@ export default defineConfig({
       _motionSafe: {
         scrollBehavior: "smooth",
       },
+
+      "&:has(dialog[open])": {
+        overflow: "hidden",
+      },
+    },
+    dialog: {
+      _open: {
+        color: "rebeccapurple",
+      },
     },
     body: {
       textStyle: "body",

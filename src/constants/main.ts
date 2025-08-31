@@ -10,6 +10,11 @@ export enum CollectionType {
   CARDS = "cards",
 }
 
+export enum DialogType {
+  ACCEPT = "accept",
+  CHOICE = "choice",
+}
+
 export enum Stage {
   DRAFT = "DRAFT",
   PUBLISHED = "PUBLISHED",

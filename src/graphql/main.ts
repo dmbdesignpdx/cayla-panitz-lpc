@@ -16,6 +16,11 @@ export function document(stage: Stage) {
       }
     }
     {
+      dialogs (where: { active: true }) {
+        heading
+        type
+        content
+      }
       pages(stage: ${stage}) {
         title
         description

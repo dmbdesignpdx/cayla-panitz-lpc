@@ -1,6 +1,7 @@
 import {
   type EntryType,
   type CollectionType,
+  type DialogType,
   Stage,
 } from "../constants/main";
 
@@ -51,6 +52,13 @@ export interface ContactGroup {
   fax?: string;
 }
 
+export interface Dialog {
+  heading?: string;
+  type?: DialogType;
+  content?: string;
+  active?: boolean;
+}
+
 
 /**
  * Models
@@ -94,4 +102,5 @@ export interface Page extends Model {
 
 export interface Data {
   pages: Page[];
+  dialogs: Dialog[];
 }

@@ -17,6 +17,7 @@ import Shero from "../components/Shero.astro";
 import Entry from "../components/Entry.astro";
 import Footer from "../components/Footer.astro";
 import Nav from "src/components/Nav.astro";
+import Dialog from "../components/Dialog.astro";
 import "../styles/index.css";
 
 
@@ -26,6 +27,7 @@ const stage = import.meta.env.DEV ? Stage.DRAFT : Stage.PUBLISHED;
 const client = new GraphQLClient(import.meta.env.CONTENT);
 const data = await client.request<Data>(document(stage));
 const [home] = data.pages;
+const [message] = data.dialogs;
 const {
   shero,
   sections,
@@ -168,6 +170,7 @@ const headings = sections?.map(item => `${item.heading}`) || [""];
   </head>
 
   <body>
+    <Dialog {...message} />
     {shero && <Shero {...shero} />}
     <Nav sections={headings} />
     <main>
