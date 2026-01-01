@@ -30,7 +30,7 @@ const {
   footer,
 } = home;
 
-const headings = sections?.map(item => `${item.heading}`) || [""];
+const headings = sections?.map(section => `${section.heading}`);
 ---
 
 
@@ -42,7 +42,7 @@ const headings = sections?.map(item => `${item.heading}`) || [""];
   <body>
     {message && <Dialog {...message} />}
     {shero && <Shero {...shero} />}
-    <Nav sections={headings} />
+    {headings && <Nav sections={headings} />}
     <main>
 
       {sections?.length && sections.map(section => (
