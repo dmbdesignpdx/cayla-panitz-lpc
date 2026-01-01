@@ -157,12 +157,14 @@ export default defineConfig({
     html: {
       fontSize: "100%",
       colorScheme: "only light",
+      scrollbarGutter: "stable",
+      overflowY: "auto",
       _motionSafe: {
         scrollBehavior: "smooth",
       },
 
       "&:has(dialog[open])": {
-        overflow: "hidden",
+        overflowY: "hidden",
       },
     },
     body: {

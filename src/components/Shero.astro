@@ -1,17 +1,21 @@
 ---
+// Theirs
 import { Image } from "astro:assets";
 
-import type { ContentBlock } from "../types/main";
+// Ours
+import { type ContentBlock } from "../types/main";
 import Shape from "./Shape.astro";
 import * as style from "../styles/shero.styles";
 import { md } from "../lib/markdown";
 import { Color, dictionary } from "../constants/main";
 
+// Types
 interface Props extends ContentBlock {}
 
-
+// Props
 const { heading, content } = Astro.props;
 
+// Local
 const copy = content?.copy ?? "";
 const image = content?.image ?? {};
 const html = await md.inline(copy);

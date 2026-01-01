@@ -1,0 +1,87 @@
+---
+// Ours
+import { type Page } from "../types/main";
+import { setMetaCards } from "src/lib/setMetaCards";
+import {
+  FontUrl,
+  Site,
+  Assets,
+} from "../constants/main";
+
+// Types
+interface Props {
+  fileName: string;
+  page: Page;
+}
+
+// Props
+const { fileName, page } = Astro.props;
+---
+
+
+<head>
+  <meta charset="utf-8" />
+  <link
+    href={Assets.URL}
+    rel="preconnect"
+  />
+  <link
+    href={FontUrl.API}
+    rel="preconnect"
+  />
+  <link
+    crossorigin
+    href={FontUrl.STATIC}
+    rel="preconnect"
+  />
+  <meta
+    content="width=device-width,initial-scale=1"
+    name="viewport"
+  />
+  <title>{page.title}</title>
+  <link
+    href="/favicon.ico"
+    rel="icon"
+    sizes="32x32"
+  />
+  <meta
+    content={page.description}
+    name="description"
+  />
+  <link
+    href={FontUrl.STYLE}
+    rel="stylesheet"
+  />
+  <link
+    href={Site.URL}
+    rel="canonical"
+  />
+  <meta
+    content={Site.AUTHOR}
+    name="author"
+  />
+  <meta
+    content="telephone=no,email=no"
+    name="format-detection"
+  />
+  <meta
+    content="light"
+    name="color-scheme"
+  />
+  <meta
+    content={Site.COLOR}
+    name="theme-color"
+  />
+
+  {setMetaCards(page).map(([name, content]) => (
+    <meta
+      name={name}
+      content={content}
+    />
+  ))}
+
+  <link
+    rel="sitemap"
+    href={`/sitemap-${fileName}.xml`}
+  />
+</head>

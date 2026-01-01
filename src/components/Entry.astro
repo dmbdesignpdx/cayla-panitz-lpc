@@ -1,15 +1,17 @@
 ---
-import type { Section } from "../types/main";
+// Ours
+import { type Section } from "../types/main";
 import { EntryType } from "../constants/main";
 import Content from "./Content.astro";
 import Contact from "./Contact.astro";
 import ContentCollection from "./ContentCollection.astro";
 
+// Types
 interface Props {
   sort: Section;
 }
 
-
+// Props
 const { sort: props } = Astro.props;
 ---
 

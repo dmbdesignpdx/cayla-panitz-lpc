@@ -1,6 +1,6 @@
 ---
 // Ours
-import type { ContentBlock } from "../types/main";
+import { type ContentBlock } from "../types/main";
 import { md } from "../lib/markdown";
 import * as style from "../styles/card.styles";
 
@@ -16,10 +16,12 @@ const html = await md.block(copy);
 ---
 
 
-<section class={style.root}>
-  {heading && <h2 class={style.heading}>{heading}</h2>}
-  <div
-    class={style.list}
-    set:html={html}
-  />
-</section>
+{heading && (
+  <article class={style.root}>
+    <h2 class={style.heading}>{heading}</h2>
+    <div
+      class={style.list}
+      set:html={html}
+    />
+  </article>
+)}

@@ -1,5 +1,6 @@
 /**
  * @file Provide functions to parse Markdown text.
+ * @module lib/markdown
  */
 
 
@@ -9,6 +10,12 @@ import {
   type Tokens,
   marked,
 } from "marked";
+
+
+interface MarkdownParser {
+  inline(text: string): Promise<string>;
+  block(text: string): Promise<string>;
+}
 
 
 const renderer: RendererObject = {
@@ -23,7 +30,7 @@ const renderer: RendererObject = {
 
 marked.use({ renderer });
 
-export const md = {
+export const md: MarkdownParser = {
   async inline(text: string): Promise<string> {
     const dirty: string = await marked.parseInline(text);
 

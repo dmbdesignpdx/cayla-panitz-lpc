@@ -1,0 +1,42 @@
+---
+// Ours
+import * as style from "../styles/button.styles";
+
+// Types
+interface Props {
+  label: string;
+  href?: string;
+  type?: "solid" | "text";
+  styles?: string;
+}
+
+// Props
+const { 
+  label, 
+  href,
+  styles,
+  type = "solid",
+} = Astro.props;
+
+const _class = [
+  type === "solid" ? style.solid : style.text, 
+  styles ?? "",
+];
+---
+
+{href ? (
+  <a
+    class:list={_class}
+    href={href}
+  >
+    <span>{label}</span>
+  </a>
+) : (
+  <button
+    class:list={_class}
+    type="button"
+  >
+    <span>{label}</span>
+  </button>
+)}
+

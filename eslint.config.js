@@ -4,11 +4,12 @@
 import stylistic from "@stylistic/eslint-plugin";
 import tseslint from "typescript-eslint";
 import eslint from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import astroParser from "astro-eslint-parser";
 import eslintPluginAstro from "eslint-plugin-astro";
 
 
-export default tseslint.config(
+export default defineConfig(
   eslint.configs.recommended,
   tseslint.configs.strict,
   tseslint.configs.stylistic,
@@ -18,6 +19,8 @@ export default tseslint.config(
       "node_modules",
       "styled-system",
       ".astro",
+      ".idea",
+      ".vscode",
       "dist",
     ],
   },

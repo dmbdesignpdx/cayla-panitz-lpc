@@ -1,9 +1,11 @@
 ---
+// Ours
 import type { ContentBlock } from "../types/main";
 import { md } from "../lib/markdown";
 import { getAnchor } from "../lib/anchorize";
 import * as style from "../styles/content.styles";
 
+// Types
 interface Props extends ContentBlock {}
 
 // Props
@@ -20,7 +22,9 @@ const { id } = getAnchor(heading || "");
   class={style.root}
   id={id}
 >
-  <h2 class={style.heading}>{heading}</h2>
+
+  {heading && <h2 class={style.heading}>{heading}</h2>}
+
   <div
     class={style.content}
     data-markdown

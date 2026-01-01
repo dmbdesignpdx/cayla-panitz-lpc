@@ -34,14 +34,18 @@ export enum FontUrl {
 
 export enum Site {
   URL = "https://caylapanitzlpc.com",
+  TITLE = "Cayla Panitz, LPC",
   AUTHOR = "Daniel Blake",
   COLOR = "#2dd4bf",
 }
 
 export enum Public {
-  OG = "/cayla-panitz-og.png",
-  FAV_SVG = "favicon.svg",
   FAVICON = "favicon.ico",
+  OG_PATH = "/cayla-panitz-og.png",
+  OG_TYPE = "image/png",
+  OG_WIDTH = "1200",
+  OG_HEIGHT = "628",
+  OG_ALT = "Cayla Panitz, LPC",
 }
 
 export enum Assets {
@@ -49,6 +53,17 @@ export enum Assets {
   URL = "https://us-west-2.graphassets.com",
 }
 
+export enum Label {
+  EMAIL = "Email",
+  PHONE = "Phone",
+  FAX = "Fax",
+  OPEN = "Open",
+  CLOSE = "Close",
+}
+
+export enum Id {
+  MENU = "menu",
+}
 
 /**
  * @todo - Move to CMS

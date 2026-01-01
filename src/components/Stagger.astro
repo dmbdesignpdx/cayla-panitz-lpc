@@ -1,13 +1,16 @@
 ---
-import type { ContentBlock } from "../types/main";
+// Ours
+import { type ContentBlock } from "../types/main";
 import * as style from "../styles/staggered.styles";
 import { md } from "../lib/markdown";
 
+// Types
+interface Props extends ContentBlock {}
 
-type Props = ContentBlock;
-
-
+// Props
 const { heading, content } = Astro.props;
+
+// Local
 const html = await md.block(content?.copy ?? "");
 ---
 
@@ -17,6 +20,7 @@ const html = await md.block(content?.copy ?? "");
   data-staggered
 >
   <h2 class={style.heading}>{heading}</h2>
+
   {content && (
     <div
       class={style.content}
@@ -31,4 +35,5 @@ const html = await md.block(content?.copy ?? "");
       src={content.image?.url}
     />
   )}
+
 </section>

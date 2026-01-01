@@ -1,31 +1,25 @@
 ---
-import type { ContactBlock } from "../types/main";
+// Ours
+import { type ContactBlock } from "../types/main";
 import { getAnchor } from "../lib/anchorize";
+import { isDefined } from "../lib/isDefined";
+import { Label } from "../constants/main";
 import * as style from "../styles/contact.styles";
 
+// Types
 interface Props extends ContactBlock {}
 
-
+// Props
 const {
   heading,
   contact,
   address,
 } = Astro.props;
 
-const {
-  fax,
-  email,
-  phone,
-} = contact ?? {};
-
-const {
-  street,
-  unit,
-  city,
-  state,
-  zipcode,
-} = address ?? {};
+// Local
 const { id } = getAnchor(heading || "");
+const hasContacts = isDefined(contact);
+const hasAddress = isDefined(address);
 ---
 
 
@@ -33,15 +27,27 @@ const { id } = getAnchor(heading || "");
   class={style.root}
   id={id}
 >
-  <h2 class={style.heading}>{heading}</h2>
-  <address class={style.contact}>
-    <p>Email: {email}</p>
-    <p>Phone: {phone}</p>
-    <p>Fax: {fax}</p>
-  </address>
-  <p class={style.address}>
-    {street && <span>{street}</span>}<br />
-    {unit && (<span>{unit}</span><br />)}
-    {city && <span>{city}</span>}, {state && <span>{state}</span>} {zipcode && <span>{zipcode}</span>}
-  </p>
+
+  {heading && <h2 class={style.heading}>{heading}</h2>}
+
+  {hasContacts && (
+    <address class={style.contact}>
+      <p>{Label.EMAIL}: {contact.email}</p>
+      <p>{Label.PHONE}: {contact.phone}</p>
+      <p>{Label.FAX}: {contact.fax}</p>
+    </address>
+  )}
+
+  {hasAddress && (
+    <p class={style.address}>
+      <span>{address.street}</span>
+      <br />
+      <span>{address.unit}</span>
+      <br />
+      <span>{address.city}</span>{", "}
+      <span>{address.state}</span>
+      <span>{address.zipcode}</span>
+    </p>
+  )}
+
 </section>

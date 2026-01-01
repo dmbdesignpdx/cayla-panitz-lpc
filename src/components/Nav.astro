@@ -1,14 +1,20 @@
 ---
-import { getAnchor } from "../lib/anchorize";
+// Ours
 import IconButton from "./IconButton.astro";
+import Button from "./Button.astro";
+import { Label, Id } from "../constants/main";
+import { getAnchor } from "../lib/anchorize";
 import * as style from "../styles/nav.styles";
 
+// Types
 interface Props {
   sections: string[];
 }
 
-
+// Props
 const { sections } = Astro.props;
+
+// Local
 const contact = sections.pop() || "";
 ---
 
@@ -16,54 +22,52 @@ const contact = sections.pop() || "";
 <nav class={style.root}>
   <div class={style.container}>
     <IconButton
-      controls="menu"
-      label="Open"
+      controls={Id.MENU}
+      label={Label.OPEN}
     />
     <ul
-      id="menu"
+      id={Id.MENU}
       class={style.menu}
     >
 
       {sections.map(item => (
         <li>
-          <a
-            class={style.link}
+          <Button
+            styles={style.link}
             href={getAnchor(item).href}
-          >
-            {item}
-          </a>
+            label={item}
+            type="text"
+          />
         </li>
       ))}
 
       <li class={style.close}>
         <IconButton
-          controls="menu"
-          label="Close"
+          controls={Id.MENU}
+          label={Label.CLOSE}
         />
       </li>
     </ul>
-    <a
-      class={style.email}
+    <Button
       href={getAnchor(contact).href}
-    >
-      <span>{contact}</span>
-    </a>
+      label={contact}
+    />
   </div>
 </nav>
 
 
 <script>
-  const $menu = document.getElementById("menu");
-  const buttons = [...document.querySelectorAll("nav button")];
-  const controls = [...document.querySelectorAll("nav ul a"), ...buttons];
+const $menu = document.getElementById("menu");
+const buttons = [...document.querySelectorAll("nav button")];
+const controls = [...document.querySelectorAll("nav ul a"), ...buttons];
 
-  function toggleMenu() {
-    if (window.innerWidth < 1080) {
-      const value = $menu?.toggleAttribute("data-open") || false;
+function toggleMenu() {
+  if (window.innerWidth < 1080) {
+    const value = $menu?.toggleAttribute("data-open") || false;
 
-      buttons.forEach(button => button.setAttribute("aria-expanded", value.toString()));
-    }
+    buttons.forEach(button => button.setAttribute("aria-expanded", value.toString()));
   }
+}
 
-  controls.forEach(item => item.addEventListener("click", toggleMenu));
+controls.forEach(item => item.addEventListener("click", toggleMenu));
 </script>

@@ -1,13 +1,17 @@
 ---
+// Ours
 import * as style from "../styles/shape.styles";
 
+// Types
 type Color = "teal" | "red" | "yellow";
 interface Props {
   color: Color;
 }
 
+// Props
 const { color } = Astro.props;
 
+// Local
 const className = style.root({ color });
 const path: Record<Color, string> = {
   teal: "M0,75 62,0 62,100",

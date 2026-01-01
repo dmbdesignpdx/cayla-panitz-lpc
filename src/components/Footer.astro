@@ -1,32 +1,38 @@
 ---
-import type { Footer } from "../types/main";
+// Ours
+import { type Footer } from "../types/main";
 import { getHref } from "../lib/phone";
+import { isDefined } from "../lib/isDefined";
 import * as style from "../styles/footer.styles";
 
+// Types
 interface Props extends Footer {}
 
-
+// Props
 const {
   heading,
   resources,
   copyright,
 } = Astro.props;
 
+// Local
 const year = new Date().getFullYear();
+const hasResources = isDefined(resources);
 ---
 
 
 <footer class={style.root}>
   <div class={style.content}>
+
     {heading && <h3 class={style.heading}>{heading}</h3>}
 
-    {resources?.length && (
+    {hasResources && (
       <dl class={style.list}>
-        {resources.map(item => (
+        {resources.map(resource => (
           <div class={style.item}>
-            <dt>{item.key}</dt>
+            <dt>{resource.key}</dt>
             <dd>
-              <a href={getHref(item.value || "")}>{item.value}</a>
+              <a href={getHref(resource.value || "")}>{resource.value}</a>
             </dd>
           </div>
         ))}

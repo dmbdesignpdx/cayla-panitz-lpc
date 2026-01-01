@@ -1,24 +1,34 @@
 ---
-import type { Dialog } from "../types/main";
+// Ours
+import { type Dialog } from "../types/main";
 import { md } from "../lib/markdown";
 import * as style from "../styles/dialog.styles";
 
+// Types
 interface Props extends Dialog {}
 
-const {
-  heading,
-  content,
-} = Astro.props;
+// Props
+const { heading, content } = Astro.props;
 
+// Local
 const copy = await md.inline(content ?? "");
 ---
 
 
 <script>
+const storageKey = "__cplpc_visited__";
+const storageValue = "true";
 const $dialog = document.querySelector<HTMLDialogElement>("#message");
 
-window.addEventListener("DOMContentLoaded", () => {
-  window.requestAnimationFrame(() => void $dialog?.showModal());
+window.addEventListener("DOMContentLoaded", function visited() {
+  const token = window.sessionStorage.getItem(storageKey);
+
+  if (token !== storageValue) {
+    window.requestAnimationFrame(() => void $dialog?.showModal());
+    window.sessionStorage.setItem(storageKey, storageValue);
+  };
+
+  window.removeEventListener("DOMContentLoaded", visited);
 });
 </script>
 
@@ -28,7 +38,9 @@ window.addEventListener("DOMContentLoaded", () => {
   class={style.root}
   aria-label={heading || undefined}
 >
+
   {content && <p set:html={copy} />}
+
   <form method="dialog">
     <button
       class={style.button}
