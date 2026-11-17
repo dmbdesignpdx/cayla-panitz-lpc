@@ -35,7 +35,7 @@ const headings = sections?.map(section => `${section.heading}`);
 
 
 <html lang="en">
-  <Head 
+  <Head
     page={home}
     fileName={name}
   />
@@ -61,13 +61,13 @@ let counter = 0;
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-  function animate() {
-    entry.target.removeAttribute("data-lazy");
-    observer.unobserve(entry.target);
-    counter++;
-    
-    if (counter === collection.length) observer.disconnect();
-  }
+    function animate() {
+      entry.target.removeAttribute("data-lazy");
+      observer.unobserve(entry.target);
+      counter++;
+
+      if (counter === collection.length) observer.disconnect();
+    }
 
     if (entry.isIntersecting) requestAnimationFrame(animate);
   });
