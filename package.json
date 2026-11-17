@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "vitest run"
   },
   "dependencies": {
     "astro": "^5.16.6",
@@ -28,6 +29,7 @@
     "happy-dom": "^20.0.11",
     "husky": "^9.1.7",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.51.0"
+    "typescript-eslint": "^8.51.0",
+    "vitest": "^5.1.0"
   }
 }

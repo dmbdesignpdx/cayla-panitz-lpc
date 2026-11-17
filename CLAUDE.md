@@ -15,9 +15,12 @@ pnpm build          # astro build
 pnpm preview        # preview production build
 pnpm lint           # eslint .
 pnpm lint:fix
+pnpm test           # vitest run
+pnpm vitest run src/__tests__/Button.test.js   # single test file
+pnpm vitest run -t "renders a link"            # single test by name
 ```
 
-There is no test suite. If `styled-system/` is missing or stale (e.g. after editing `panda.config.ts`), run `pnpm panda codegen`.
+Tests live in `src/__tests__/*.test.js` and render components with Astro's experimental Container API (`AstroContainer.create()` + `renderToString(Component, { props })`), configured via `vitest.config.mjs` (`getViteConfig`). Rendered HTML in tests includes dev-mode `data-astro-source-*` attributes on elements, so match with regexes (e.g. `/<span[^>]*>Label<\/span>/`) rather than exact tag strings. If `styled-system/` is missing or stale (e.g. after editing `panda.config.ts`), run `pnpm panda codegen`.
 
 `.env` (git-ignored; secrets obtained from the repo owner) must define `CONTENT` (the GraphQL endpoint URL used by `src/pages/index.astro`), plus `PROJECT` and `VERCEL`. The build/dev server fails without `CONTENT`.
 
